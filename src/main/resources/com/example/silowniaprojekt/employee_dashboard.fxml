@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.collections.FXCollections?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.silowniaprojekt.EmployeeDashboardController"
+            stylesheets="@employee_styles.css">
+
+    <left>
+        <VBox style="-fx-background-color: #0a0a0a; -fx-border-color: #dc143c; -fx-border-width: 0 3 0 0;"
+              spacing="20" prefWidth="250">
+            <Label text="Panel Pracownika" styleClass="section-title"/>
+            <VBox spacing="10" style="-fx-padding: 0 20;">
+                <Button text="Pulpit" styleClass="nav-btn" onAction="#showDashboard"/>
+                <Button text="Rejestracja" styleClass="nav-btn" onAction="#showRegistration"/>
+                <Button text="Magazyn" styleClass="nav-btn" onAction="#showWarehouse"/>
+                <Button text="Cennik" styleClass="nav-btn" onAction="#showPricing"/>
+                <Button text="Transakcje" styleClass="nav-btn" onAction="#showTransactions"/>
+                <Button text="Raporty" styleClass="nav-btn" onAction="#showReports"/>
+                <Button text="Harmonogram" styleClass="nav-btn" onAction="#showSchedule"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane style="-fx-background-color: #0a0a0a;">
+
+            <!-- Sekcja Pulpit -->
+            <VBox fx:id="dashboardSection" style="-fx-padding: 30;" spacing="20">
+                <Label text="Witaj w panelu pracownika" styleClass="section-title"/>
+                <HBox spacing="20">
+                    <VBox styleClass="stats-card">
+                        <Label text="Aktywni klienci" styleClass="stats-header"/>
+                        <Label text="158" styleClass="stats-main"/>
+                        <Label text="▲ 2.3% (m/m)" styleClass="stats-secondary"/>
+                    </VBox>
+                    <VBox styleClass="stats-card">
+                        <Label text="Dzisiejsze wejścia" styleClass="stats-header"/>
+                        <Label text="47" styleClass="stats-main"/>
+                        <Label text="▼ 1.1% (wczoraj)" styleClass="stats-secondary"/>
+                    </VBox>
+                    <VBox styleClass="stats-card">
+                        <Label text="Sprawny sprzęt" styleClass="stats-header"/>
+                        <Label text="92%" styleClass="stats-main"/>
+                        <Label text="3 urządzenia w serwisie" styleClass="stats-secondary"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- Sekcja Rejestracja -->
+            <VBox fx:id="registrationSection" visible="false" style="-fx-padding: 30;" spacing="15">
+                <Label text="Rejestracja nowego klienta" styleClass="section-title"/>
+                <GridPane hgap="15" vgap="15" style="-fx-padding: 0 0 20 0;">
+                    <Label text="Imię i nazwisko:" styleClass="form-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="clientNameField" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="300"/>
+
+                    <Label text="Data urodzenia:" styleClass="form-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <DatePicker fx:id="birthDatePicker" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="300"/>
+
+                    <Label text="Rodzaj karnetu:" styleClass="form-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <ComboBox fx:id="membershipComboBox" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="300"/>
+                </GridPane>
+                <Button text="Zarejestruj klienta" styleClass="action-btn" onAction="#registerClient"/>
+            </VBox>
+
+            <!-- Sekcja Magazyn -->
+            <VBox fx:id="warehouseSection" visible="false" style="-fx-padding: 30;" spacing="15">
+                <Label text="Stan magazynu" styleClass="section-title"/>
+                <TableView fx:id="equipmentTable" styleClass="data-table">
+                    <columns>
+                        <TableColumn fx:id="eqNameColumn" text="Nazwa sprzętu" prefWidth="200"/>
+                        <TableColumn fx:id="eqQuantityColumn" text="Ilość" prefWidth="100"/>
+                        <TableColumn fx:id="eqStatusColumn" text="Status" prefWidth="150"/>
+                        <TableColumn fx:id="eqLastCheckColumn" text="Ostatni przegląd" prefWidth="150"/>
+                        <TableColumn fx:id="eqActionsColumn" text="Akcje" prefWidth="100"/>
+                    </columns>
+                </TableView>
+                <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                    <TextField fx:id="equipmentNameField" promptText="Nazwa sprzętu" styleClass="form-field" prefWidth="200"/>
+                    <TextField fx:id="equipmentQuantityField" promptText="Ilość" styleClass="form-field" prefWidth="100"/>
+                    <Button text="Dodaj sprzęt" styleClass="action-btn" onAction="#addEquipment"/>
+                </HBox>
+            </VBox>
+
+            <!-- Sekcja Cennik -->
+            <VBox fx:id="pricingSection" visible="false" style="-fx-padding: 30;" spacing="15">
+                <Label text="Zarządzanie cennikiem" styleClass="section-title"/>
+                <TableView fx:id="pricingTable" styleClass="data-table">
+                    <columns>
+                        <TableColumn fx:id="membershipNameColumn" text="Nazwa pakietu" prefWidth="150"/>
+                        <TableColumn fx:id="membershipDescColumn" text="Opis" prefWidth="300"/>
+                        <TableColumn fx:id="membershipPriceColumn" text="Cena" prefWidth="100"/>
+                        <TableColumn fx:id="membershipDurationColumn" text="Czas trwania" prefWidth="120"/>
+                        <TableColumn fx:id="membershipStatusColumn" text="Status" prefWidth="100"/>
+                    </columns>
+                </TableView>
+                <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                    <TextField fx:id="packageNameField" promptText="Nazwa pakietu" styleClass="form-field" prefWidth="200"/>
+                    <TextField fx:id="packagePriceField" promptText="Cena (zł)" styleClass="form-field" prefWidth="100"/>
+                    <ComboBox fx:id="packageDurationCombo" promptText="Czas trwania" styleClass="form-field" prefWidth="120"/>
+                    <Button text="Dodaj pakiet" styleClass="action-btn" onAction="#addPricingPackage"/>
+                </HBox>
+            </VBox>
+
+            <!-- Sekcja Transakcje -->
+            <VBox fx:id="transactionsSection" visible="false" style="-fx-padding: 30;" spacing="15">
+                <Label text="Historia transakcji" styleClass="section-title"/>
+                <TableView fx:id="transactionsTable" styleClass="data-table">
+                    <columns>
+                        <TableColumn fx:id="transactionDateColumn" text="Data" prefWidth="120"/>
+                        <TableColumn fx:id="transactionIdColumn" text="Numer transakcji" prefWidth="150"/>
+                        <TableColumn fx:id="transactionClientColumn" text="Klient" prefWidth="200"/>
+                        <TableColumn fx:id="transactionAmountColumn" text="Kwota" prefWidth="100"/>
+                        <TableColumn fx:id="transactionTypeColumn" text="Typ" prefWidth="150"/>
+                        <TableColumn fx:id="transactionStatusColumn" text="Status" prefWidth="100"/>
+                    </columns>
+                </TableView>
+                <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                    <ComboBox fx:id="clientComboBox" promptText="Wybierz klienta" styleClass="form-field" prefWidth="200"/>
+                    <TextField fx:id="amountField" promptText="Kwota" styleClass="form-field" prefWidth="100"/>
+                    <ComboBox fx:id="transactionTypeCombo" promptText="Typ transakcji" styleClass="form-field" prefWidth="150"/>
+                    <Button text="Dodaj transakcję" styleClass="action-btn" onAction="#addTransaction"/>
+                </HBox>
+            </VBox>
+
+            <!-- Sekcja Raporty -->
+            <VBox fx:id="reportsSection" visible="false" style="-fx-padding: 30;" spacing="15">
+                <Label text="Raporty miesięczne" styleClass="section-title"/>
+                <HBox spacing="20">
+                    <VBox styleClass="stats-card">
+                        <Label text="Przychód" styleClass="stats-header"/>
+                        <Label fx:id="revenueLabel" text="24 500 zł" styleClass="stats-main"/>
+                        <Label fx:id="revenueChangeLabel" text="▲ 15% (m/m)" styleClass="stats-secondary"/>
+                    </VBox>
+                    <VBox styleClass="stats-card">
+                        <Label text="Nowi klienci" styleClass="stats-header"/>
+                        <Label fx:id="newClientsLabel" text="47" styleClass="stats-main"/>
+                        <Label fx:id="clientsChangeLabel" text="▼ 5% (m/m)" styleClass="stats-secondary"/>
+                    </VBox>
+                    <VBox styleClass="stats-card">
+                        <Label text="Średnia frekwencja" styleClass="stats-header"/>
+                        <Label fx:id="attendanceLabel" text="68%" styleClass="stats-main"/>
+                        <Label fx:id="attendanceChangeLabel" text="▬ 0% (m/m)" styleClass="stats-secondary"/>
+                    </VBox>
+                </HBox>
+                <HBox spacing="10" style="-fx-padding: 20 0 0 0;">
+                    <DatePicker fx:id="reportMonthPicker" promptText="Wybierz miesiąc" styleClass="form-field"/>
+                    <Button text="Generuj raport PDF" styleClass="action-btn"/>
+                    <Button text="Eksportuj do Excel" styleClass="action-btn"/>
+                </HBox>
+            </VBox>
+
+            <!-- Sekcja Harmonogram -->
+            <VBox fx:id="scheduleSection" visible="false" style="-fx-padding: 30;" spacing="15">
+                <Label text="Harmonogram zajęć" styleClass="section-title"/>
+                <TableView fx:id="scheduleTable" styleClass="data-table">
+                    <columns>
+                        <TableColumn fx:id="scheduleDateColumn" text="Data" prefWidth="120"/>
+                        <TableColumn fx:id="scheduleTimeColumn" text="Godzina" prefWidth="100"/>
+                        <TableColumn fx:id="scheduleActivityColumn" text="Zajęcia" prefWidth="200"/>
+                        <TableColumn fx:id="scheduleTrainerColumn" text="Trener" prefWidth="150"/>
+                        <TableColumn fx:id="scheduleParticipantsColumn" text="Uczestnicy" prefWidth="120"/>
+                        <TableColumn fx:id="scheduleStatusColumn" text="Status" prefWidth="100"/>
+                    </columns>
+                </TableView>
+                <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                    <DatePicker fx:id="scheduleDatePicker" styleClass="form-field"/>
+                    <TextField fx:id="activityNameField" promptText="Nazwa zajęć" styleClass="form-field"/>
+                    <ComboBox fx:id="trainerComboBox" promptText="Wybierz trenera" styleClass="form-field" prefWidth="150"/>
+                    <Button text="Dodaj zajęcia" styleClass="action-btn" onAction="#addSchedule"/>
+                </HBox>
+            </VBox>
+
+        </StackPane>
+    </center>
+</BorderPane>

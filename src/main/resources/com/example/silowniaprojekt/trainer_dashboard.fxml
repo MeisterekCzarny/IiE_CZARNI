@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.silowniaprojekt.TrainerDashboardController"
+            stylesheets="@trainer_styles.css">
+    <!-- Lewy panel nawigacyjny -->
+    <left>
+        <VBox style="-fx-background-color: #0a0a0a; -fx-border-color: #dc143c; -fx-border-width: 0 3 0 0;"
+              spacing="20" prefWidth="250">
+            <Label text="Panel Trenera" style="-fx-text-fill: #dc143c; -fx-font-size: 24; -fx-font-weight: bold; -fx-padding: 20;"/>
+            <VBox spacing="10" style="-fx-padding: 0 20;">
+                <Button text="Pulpit" styleClass="nav-btn" onAction="#showDashboard"/>
+                <Button text="Plany treningowe" styleClass="nav-btn" onAction="#showTrainingPlans"/>
+                <Button text="Cele" styleClass="nav-btn" onAction="#showGoals"/>
+                <Button text="Postępy" styleClass="nav-btn" onAction="#showProgress"/>
+                <Button text="Harmonogram" styleClass="nav-btn" onAction="#showSchedule"/>
+                <Button text="Klienci" styleClass="nav-btn" onAction="#showClients"/>
+                <Button text="Dochody" styleClass="nav-btn" onAction="#showIncome"/>
+                <Button text="Frekwencja" styleClass="nav-btn" onAction="#showAttendance"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Główna zawartość -->
+    <center>
+        <StackPane style="-fx-background-color: #0a0a0a;">
+            <!-- Sekcja Pulpit -->
+            <VBox fx:id="dashboardSection" style="-fx-padding: 30;" spacing="20">
+                <Label text="Witaj w panelu trenera" style="-fx-text-fill: #dc143c; -fx-font-size: 24; -fx-font-weight: bold;"/>
+                <Label fx:id="statusLabel" style="-fx-text-fill: white; -fx-font-size: 14; -fx-padding: 0 0 10 0;"/>
+                <HBox spacing="20">
+                    <VBox styleClass="stats-card">
+                        <Label text="Twoi klienci" styleClass="stats-header"/>
+                        <Label text="24" styleClass="stats-main"/>
+                        <Label text="▲ 1.2% (m/m)" styleClass="stats-secondary"/>
+                    </VBox>
+                    <VBox styleClass="stats-card">
+                        <Label text="Zaplanowane treningi" styleClass="stats-header"/>
+                        <Label text="8" styleClass="stats-main"/>
+                        <Label text="▲ 1.1% (wczoraj)" styleClass="stats-secondary"/>
+                    </VBox>
+                    <VBox styleClass="stats-card">
+                        <Label text="Dziś zaplanowano" styleClass="stats-header"/>
+                        <Label text="3 treningi" styleClass="stats-main"/>
+                        <Label text="1 wolne miejsce" styleClass="stats-secondary"/>
+                    </VBox>
+                </HBox>
+                <VBox styleClass="stats-card" spacing="15">
+                    <Label text="Szybkie akcje:" style="-fx-text-fill: #dc143c; -fx-font-size: 18;"/>
+                    <HBox spacing="15">
+                        <Button text="Dodaj klienta" styleClass="action-btn" onAction="#handleAddClient"/>
+                        <Button text="Zaplanuj trening" styleClass="action-btn"/>
+                        <Button text="Generuj raport" styleClass="action-btn"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+
+
+            <!-- Sekcja Dochody -->
+            <VBox fx:id="incomeSection" visible="false" style="-fx-padding: 30;" spacing="20">
+                <Label text="Monitorowanie dochodów" style="-fx-text-fill: #dc143c; -fx-font-size: 24; -fx-font-weight: bold;"/>
+                <HBox spacing="20">
+                    <VBox styleClass="stats-card">
+                        <Label text="Dzisiejszy dochód" styleClass="stats-header"/>
+                        <Label text="1,200 zł" styleClass="stats-main"/>
+                        <Label text="↑ 15% (wczoraj)" styleClass="stats-secondary"/>
+                    </VBox>
+                    <VBox styleClass="stats-card">
+                        <Label text="Dochód w tym tygodniu" styleClass="stats-header"/>
+                        <Label text="5,800 zł" styleClass="stats-main"/>
+                        <Label text="↑ 20% (ostatni tydzień)" styleClass="stats-secondary"/>
+                    </VBox>
+                    <VBox styleClass="stats-card">
+                        <Label text="Dochód w tym miesiącu" styleClass="stats-header"/>
+                        <Label text="22,500 zł" styleClass="stats-main"/>
+                        <Label text="↑ 10% (ostatni miesiąc)" styleClass="stats-secondary"/>
+                    </VBox>
+                </HBox>
+                <Label text="Szczegóły dochodów:" style="-fx-text-fill: white; -fx-font-size: 18; -fx-padding: 10 0;"/>
+                <TableView fx:id="incomeTable" styleClass="income-table">
+                    <columns>
+                        <TableColumn fx:id="dateColumn" text="Data" prefWidth="120">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="date" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="clientColumn" text="Klient" prefWidth="200">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="client" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="trainingColumn" text="Trening" prefWidth="150">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="training" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="amountColumn" text="Kwota" prefWidth="100">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="amount" />
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Pozostałe sekcje -->
+            <VBox fx:id="trainingPlansSection" visible="false"/>
+            <!-- Sekcja Frekwencja -->
+            <VBox fx:id="attendanceSection" visible="false" style="-fx-padding: 30;" spacing="20">
+                <Label text="Frekwencja na treningach" style="-fx-text-fill: #dc143c; -fx-font-size: 24; -fx-font-weight: bold;"/>
+
+                <!-- Statystyki -->
+                <VBox spacing="15" style="-fx-border-color: #333; -fx-border-width: 0 0 1 0; -fx-padding: 0 0 20 0;">
+                    <HBox spacing="20">
+                        <VBox styleClass="stats-card">
+                            <Label text="Dzisiejsza frekwencja" styleClass="stats-header"/>
+                            <Label text="85%" styleClass="stats-main"/>
+                            <Label text="↑ 1.5% (wczoraj)" styleClass="stats-secondary"/>
+                        </VBox>
+
+                        <VBox styleClass="stats-card">
+                            <Label text="Frekwencja w tym tygodniu" styleClass="stats-header"/>
+                            <Label text="78%" styleClass="stats-main"/>
+                            <Label text="↑ 1.10% (ostatni tydzień)" styleClass="stats-secondary"/>
+                        </VBox>
+
+                        <VBox styleClass="stats-card">
+                            <Label text="Frekwencja w tym miesiącu" styleClass="stats-header"/>
+                            <Label text="82%" styleClass="stats-main"/>
+                            <Label text="↑ 1.8% (ostatni miesiąc)" styleClass="stats-secondary"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Tabela frekwencji -->
+                <Label text="Szczegóły frekwencji:" style="-fx-text-fill: white; -fx-font-size: 18; -fx-padding: 10 0;"/>
+                <TableView fx:id="attendanceTable" styleClass="income-table">
+                    <columns>
+                        <TableColumn fx:id="attDateColumn" text="Data" prefWidth="120">
+                            <cellValueFactory><PropertyValueFactory property="date"/></cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="attTrainingColumn" text="Trening" prefWidth="150">
+                            <cellValueFactory><PropertyValueFactory property="training"/></cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="attClientColumn" text="Klient" prefWidth="200">
+                            <cellValueFactory><PropertyValueFactory property="client"/></cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="attStatusColumn" text="Status" prefWidth="100">
+                            <cellValueFactory><PropertyValueFactory property="status"/></cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+            </VBox>
+            <!-- Sekcja Klienci -->
+            <VBox fx:id="clientsSection" visible="false" style="-fx-padding: 30;" spacing="20">
+                <Label text="Twoi klienci" style="-fx-text-fill: #dc143c; -fx-font-size: 24; -fx-font-weight: bold;"/>
+                <VBox fx:id="clientsContainer" spacing="15">
+                    <!-- Dynamicznie generowane karty klientów -->
+                </VBox>
+                <Button text="Dodaj klienta" styleClass="action-btn" onAction="#handleAddClient"/>
+            </VBox>
+            <!-- Sekcja Postępy -->
+            <VBox fx:id="progressSection" visible="false" style="-fx-padding: 30;" spacing="20">
+                <Label text="Monitorowanie postępów" style="-fx-text-fill: #dc143c; -fx-font-size: 24; -fx-font-weight: bold;"/>
+
+                <HBox spacing="15" alignment="CENTER_LEFT">
+                    <Label text="Wybierz klienta:" style="-fx-text-fill: white; -fx-font-size: 16;"/>
+                    <ComboBox fx:id="clientComboBox" promptText="Wybierz klienta" styleClass="progress-combo"/>
+                </HBox>
+
+                <!-- Karta ćwiczeń -->
+                <VBox fx:id="exercisesContainer" spacing="15">
+                    <!-- Przykładowe ćwiczenie (będzie generowane dynamicznie) -->
+                    <VBox styleClass="exercise-card">
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="Przysiady ze sztangą 120 kg" styleClass="exercise-title"/>
+                            <Label text="75% ukończone" styleClass="exercise-percent"/>
+                        </HBox>
+                        <ProgressBar progress="0.75" styleClass="exercise-progress"/>
+                        <Button text="Aktywuj" styleClass="exercise-btn"/>
+                    </VBox>
+                </VBox>
+            </VBox>
+            <!-- Sekcja Cele -->
+            <VBox fx:id="goalsSection" visible="false" style="-fx-padding: 30;" spacing="20">
+                <Label text="Ustalanie celów" style="-fx-text-fill: #dc143c; -fx-font-size: 24; -fx-font-weight: bold;"/>
+
+                <HBox spacing="15" alignment="CENTER_LEFT">
+                    <Label text="Wybierz klienta:" style="-fx-text-fill: white; -fx-font-size: 16;"/>
+                    <ComboBox fx:id="goalsClientCombo" promptText="Wybierz klienta" styleClass="goals-combo"/>
+                </HBox>
+
+                <!-- Kontener z celami -->
+                <VBox fx:id="goalsContainer" spacing="15">
+                    <!-- Przykładowy cel 1 -->
+                    <VBox styleClass="goal-card">
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="Przysiady ze sztangą" styleClass="goal-title"/>
+                            <Label text="120 kg" styleClass="goal-target"/>
+                        </HBox>
+                        <HBox spacing="10">
+                            <Button text="Edytuj" styleClass="goal-btn"/>
+                            <Button text="Usuń" styleClass="goal-btn"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+            <!-- Sekcja Harmonogram -->
+            <VBox fx:id="scheduleSection" visible="false" style="-fx-padding: 30;" spacing="20">
+                <Label text="Plan treningowy" style="-fx-text-fill: #dc143c; -fx-font-size: 24; -fx-font-weight: bold;"/>
+
+                <!-- Tabela harmonogramu -->
+                <TableView fx:id="scheduleTable" styleClass="schedule-table">
+                    <columns>
+                        <TableColumn text="Godziny" prefWidth="120" fx:id="timeColumn">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="time"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Poniedziałek" prefWidth="150" fx:id="mondayColumn">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="monday"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Wtorek" prefWidth="150" fx:id="tuesdayColumn">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="tuesday"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Środa" prefWidth="150" fx:id="wednesdayColumn">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="wednesday"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Czwartek" prefWidth="150" fx:id="thursdayColumn">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="thursday"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Piątek" prefWidth="150" fx:id="fridayColumn">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="friday"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Sobota" prefWidth="150" fx:id="saturdayColumn">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="saturday"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+
+                <!-- Formularz dodawania -->
+                <VBox styleClass="form-card" spacing="15">
+                    <Label text="Dodaj nowy termin" style="-fx-text-fill: #dc143c; -fx-font-size: 18;"/>
+                    <GridPane hgap="10" vgap="10">
+                        <Label text="Nazwa ćwiczenia:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                        <Label text="Godziny:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <TextField promptText="np. 07:00-08:00" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                        <Label text="Dzień:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <ComboBox promptText="Wybierz dzień" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Poniedziałek"/>
+                                    <String fx:value="Wtorek"/>
+                                    <String fx:value="Środa"/>
+                                    <String fx:value="Czwartek"/>
+                                    <String fx:value="Piątek"/>
+                                    <String fx:value="Sobota"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                    </GridPane>
+                    <Button text="Dodaj do harmonogramu" styleClass="action-btn"/>
+                </VBox>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

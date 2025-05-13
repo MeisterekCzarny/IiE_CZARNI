@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.silowniaprojekt.ClientDashboardController"
+            stylesheets="@dashboard.css">
+
+    <left>
+        <VBox style="-fx-background-color: #0a0a0a; -fx-border-color: #dc143c; -fx-border-width: 0 3 0 0;"
+              spacing="20" prefWidth="250" alignment="TOP_CENTER">
+            <Label text="Black Iron Gym" style="-fx-text-fill: #dc143c; -fx-font-size: 24; -fx-font-weight: bold; -fx-padding: 20;"/>
+
+            <VBox spacing="10" style="-fx-padding: 0 20;" alignment="CENTER_LEFT">
+                <Button styleClass="nav-btn" onAction="#showHome">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🏠" styleClass="nav-icon"/>
+                            <Label text="Strona główna"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button styleClass="nav-btn" onAction="#showProfile">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="👤" styleClass="nav-icon"/>
+                            <Label text="Profil"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button styleClass="nav-btn" onAction="#showMembership">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="💳" styleClass="nav-icon"/>
+                            <Label text="Karnety"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button styleClass="nav-btn" onAction="#showTrainings">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🏋️" styleClass="nav-icon"/>
+                            <Label text="Treningi"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button styleClass="nav-btn" onAction="#showShop">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🛒" styleClass="nav-icon"/>
+                            <Label text="Sklep"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button styleClass="nav-btn" onAction="#showSchedule">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="📅" styleClass="nav-icon"/>
+                            <Label text="Harmonogram"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane>
+            <!-- Sekcja główna -->
+            <VBox fx:id="homeSection" style="-fx-background-color: #1a1a1a; -fx-padding: 40 50;" spacing="30" alignment="TOP_CENTER">
+                <!-- Nagłówek siłowni -->
+                <VBox alignment="CENTER" spacing="10" style="-fx-padding: 0 0 30 0;">
+                    <Label text="BLACK IRON GYM" style="-fx-text-fill: #dc143c; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                    <Label text="Siłownia dla prawdziwych wojowników" style="-fx-text-fill: white; -fx-font-size: 18px;"/>
+                </VBox>
+
+                <!-- Czerwony separator -->
+                <Separator style="-fx-padding: 10 0; "/>
+
+                <!-- Sekcja ofert -->
+                <VBox spacing="30" alignment="CENTER" style="-fx-padding: 0 0 30 0;">
+                    <Label text="ROZPOCZNIJ SWÓJ TRENING" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+                    <HBox spacing="40" alignment="CENTER">
+                        <!-- Pakiet BASIC -->
+                        <VBox styleClass="offer-box" alignment="CENTER" spacing="10">
+                            <VBox alignment="CENTER">
+                                <Label text="BASIC" style="-fx-text-fill: #dc143c; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                                <Label text="150 zł" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                                <Label text="za miesiąc" style="-fx-text-fill: #888; -fx-font-size: 16px;"/>
+                            </VBox>
+
+                            <!-- Czerwony separator -->
+                            <Separator style="-fx-padding: 10 0; "/>
+
+                            <VBox spacing="10" style="-fx-padding: 10 0 0 0;" alignment="CENTER_LEFT">
+                                <Label text="✓ Dostęp 24h" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label text="✓ Strefa cardio" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label text="✓ Konsultacja trenera" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label text="✓ Indywidualny plan" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label text="✓ Wpłatny plan" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            </VBox>
+                        </VBox>
+
+                        <!-- Pakiet PRO -->
+                        <VBox styleClass="offer-box" alignment="CENTER" spacing="10">
+                            <VBox alignment="CENTER">
+                                <Label text="PRO" style="-fx-text-fill: #dc143c; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                                <Label text="400 zł" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                                <Label text="za 3 miesiące" style="-fx-text-fill: #888; -fx-font-size: 16px;"/>
+                            </VBox>
+
+                            <!-- Czerwony separator -->
+                            <Separator style="-fx-padding: 10 0; "/>
+
+                            <VBox spacing="10" style="-fx-padding: 10 0 0 0;" alignment="CENTER_LEFT">
+                                <Label text="✓ Wszystko w Basic" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label text="✓ Sauna" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label text="✓ Treningi grupowe" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label text="✓ Indywidualny plan" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                                <Label text="✓ Wpłatny plan" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            </VBox>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Czerwony separator -->
+                <Separator style="-fx-padding: 10 0; "/>
+
+                <!-- Dodatkowa sekcja promocyjna -->
+                <VBox spacing="20" alignment="CENTER" style="-fx-padding: 20 0;">
+                    <Label text="SPECJALNA OFERTA DLA NOWYCH KLIENTÓW!" style="-fx-text-fill: #dc143c; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                    <Label text="Pierwszy miesiąc treningów 20% taniej!" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                    <Button text="ZAPISZ SIĘ TERAZ" style="-fx-background-color: #dc143c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12 30; -fx-font-size: 16px; -fx-background-radius: 5;"/>
+                </VBox>
+            </VBox>
+
+            <!-- Sekcja profilu -->
+            <VBox fx:id="profileSection" visible="false" spacing="20" style="-fx-padding: 30;" alignment="TOP_CENTER">
+                <!-- Zdjęcie profilowe -->
+                <StackPane alignment="CENTER" style="-fx-padding: 0 0 20 0;">
+                    <ImageView fitWidth="120" fitHeight="120" preserveRatio="true">
+                        <image>
+                            <Image url="@images/awatar.png"/>
+                        </image>
+                        <clip>
+                            <Circle radius="60" centerX="60" centerY="60"/>
+                        </clip>
+                    </ImageView>
+                    <Circle radius="60" stroke="#dc143c" strokeWidth="3" fill="transparent"
+                            layoutX="60" layoutY="60"/>
+                </StackPane>
+
+                <!-- Imię i nazwisko -->
+                <Label text="Jakub Matlosz" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+
+                <!-- Dane podstawowe - wyśrodkowane -->
+                <GridPane hgap="20" vgap="10" style="-fx-padding: 0 0 20 0;" alignment="CENTER">
+                    <Label text="Email:" styleClass="data-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <Label fx:id="emailLabel" text="jakub.matlosz@gmail.com" styleClass="data-value" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Data ważności:" styleClass="data-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <Label fx:id="expiryLabel" text="01.01.2023" styleClass="data-value" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Status karnetu:" styleClass="data-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <Label fx:id="statusLabel" text="AKTYWNY (PRO)" styleClass="status-active" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <!-- Statystyki w układzie 3x3 -->
+                <GridPane hgap="20" vgap="20" alignment="CENTER">
+                    <!-- Pierwszy wiersz -->
+                    <VBox styleClass="stat-box" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                        <Label fx:id="completedTrainingsLabel" text="21" styleClass="stat-main"/>
+                        <Label text="Zrealizowanych treningów" styleClass="stat-label"/>
+                    </VBox>
+
+                    <VBox styleClass="stat-box" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                        <Label fx:id="attendanceLabel" text="98%" styleClass="stat-main"/>
+                        <Label text="Frekwencja" styleClass="stat-label"/>
+                    </VBox>
+
+                    <VBox styleClass="stat-box" GridPane.rowIndex="0" GridPane.columnIndex="2">
+                        <Label fx:id="progressLabel" text="12kg" styleClass="stat-main"/>
+                        <Label text="Progres masy" styleClass="stat-label"/>
+                    </VBox>
+
+                    <!-- Drugi wiersz -->
+                    <VBox styleClass="stat-box" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                        <Label fx:id="heightLabel" text="160cm" styleClass="stat-main"/>
+                        <Label text="Wzrost" styleClass="stat-label"/>
+                    </VBox>
+
+                    <VBox styleClass="stat-box" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                        <Label fx:id="waistLabel" text="30cm" styleClass="stat-main"/>
+                        <Label text="W pasie" styleClass="stat-label"/>
+                    </VBox>
+
+                    <VBox styleClass="stat-box" GridPane.rowIndex="1" GridPane.columnIndex="2">
+                        <Label fx:id="flakLabel" text="20cm" styleClass="stat-main"/>
+                        <Label text="Fałd skórny" styleClass="stat-label"/>
+                    </VBox>
+
+                    <!-- Trzeci wiersz -->
+                    <VBox styleClass="stat-box" GridPane.rowIndex="2" GridPane.columnIndex="0">
+                        <Label fx:id="weightLabel" text="89KG" styleClass="stat-main"/>
+                        <Label text="Masa ciała" styleClass="stat-label"/>
+                    </VBox>
+
+                    <VBox styleClass="stat-box" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                        <Label fx:id="muscleMassLabel" text="68KG" styleClass="stat-main"/>
+                        <Label text="Masa mięśniowa" styleClass="stat-label"/>
+                    </VBox>
+
+                    <VBox styleClass="stat-box" GridPane.rowIndex="2" GridPane.columnIndex="2">
+                        <Label fx:id="hydrationLabel" text="87%" styleClass="stat-main"/>
+                        <Label text="Nawodnienie" styleClass="stat-label"/>
+                    </VBox>
+                </GridPane>
+            </VBox>
+
+            <VBox fx:id="membershipSection" visible="false" style="-fx-background-color: #1a1a1a; -fx-padding: 30; -fx-spacing: 30; -fx-alignment: CENTER;">
+                <!-- Tytuł sekcji -->
+                <Label text="KARNETY" style="-fx-text-fill: #dc143c; -fx-font-size: 28px; -fx-font-weight: bold; -fx-font-family: 'Arial Black'; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0.5, 0, 1);"/>
+
+                <!-- Pierwszy rząd - Basic i Pro -->
+                <HBox spacing="40" alignment="CENTER">
+                    <!-- Pakiet BASIC -->
+                    <VBox style="-fx-background-color: #2a2a2a; -fx-background-radius: 10; -fx-padding: 20; -fx-border-color: #dc143c; -fx-border-radius: 10; -fx-border-width: 2;"
+                          alignment="CENTER" spacing="10" prefWidth="250">
+                        <VBox alignment="CENTER">
+                            <Label text="BASIC" style="-fx-text-fill: #dc143c; -fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Arial Black';"/>
+                            <Label text="150 zł" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                            <Label text="za miesiąc" style="-fx-text-fill: #888; -fx-font-size: 16px;"/>
+                        </VBox>
+
+                        <Separator style="-fx-padding: 10 0; "/>
+
+                        <VBox spacing="10" style="-fx-padding: 10 0 0 0;" alignment="CENTER_LEFT">
+                            <Label text="✓ Dostęp 24h" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Strefa cardio" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Konsultacja trenera" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Indywidualny plan" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Wpłatny plan" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                        </VBox>
+
+                        <Button text="Dodaj do koszyka" onAction="#addBasicToCart" style="-fx-background-color: #dc143c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 5;"/>
+                    </VBox>
+
+                    <!-- Pakiet PRO -->
+                    <VBox style="-fx-background-color: #2a2a2a; -fx-background-radius: 10; -fx-padding: 20; -fx-border-color: #dc143c; -fx-border-radius: 10; -fx-border-width: 2;"
+                          alignment="CENTER" spacing="10" prefWidth="250">
+                        <VBox alignment="CENTER">
+                            <Label text="PRO" style="-fx-text-fill: #dc143c; -fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Arial Black';"/>
+                            <Label text="400 zł" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                            <Label text="za 3 miesiące" style="-fx-text-fill: #888; -fx-font-size: 16px;"/>
+                        </VBox>
+
+                        <Separator style="-fx-padding: 10 0; "/>
+
+                        <VBox spacing="10" style="-fx-padding: 10 0 0 0;" alignment="CENTER_LEFT">
+                            <Label text="✓ Wszystko w Basic" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Sauna" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Treningi grupowe" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Indywidualny plan" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Wpłatny plan" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                        </VBox>
+
+                        <Button text="Dodaj do koszyka" onAction="#addProToCart" style="-fx-background-color: #dc143c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 5;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Drugi rząd - Dzienny, Miesięczny, Roczny -->
+                <HBox spacing="40" alignment="CENTER">
+                    <!-- Karnet DZIENNY -->
+                    <VBox style="-fx-background-color: #2a2a2a; -fx-background-radius: 10; -fx-padding: 20; -fx-border-color: #dc143c; -fx-border-radius: 10; -fx-border-width: 2;"
+                          alignment="CENTER" spacing="10" prefWidth="200">
+                        <VBox alignment="CENTER">
+                            <Label text="DZIENNY" style="-fx-text-fill: #dc143c; -fx-font-size: 20px; -fx-font-weight: bold; -fx-font-family: 'Arial Black';"/>
+                            <Label text="25 zł" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                            <Label text="wejście jednorazowe" style="-fx-text-fill: #888; -fx-font-size: 14px;"/>
+                        </VBox>
+
+                        <Separator style="-fx-padding: 10 0; "/>
+
+                        <VBox spacing="10" style="-fx-padding: 10 0 0 0;" alignment="CENTER_LEFT">
+                            <Label text="✓ Dostęp do strefy cardio" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Godziny otwarcia" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Prysznic" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                        </VBox>
+
+                        <Button text="Dodaj do koszyka" onAction="#addDailyToCart" style="-fx-background-color: #dc143c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 5;"/>
+                    </VBox>
+
+                    <!-- Karnet MIESIĘCZNY -->
+                    <VBox style="-fx-background-color: #2a2a2a; -fx-background-radius: 10; -fx-padding: 20; -fx-border-color: #dc143c; -fx-border-radius: 10; -fx-border-width: 2;"
+                          alignment="CENTER" spacing="10" prefWidth="200">
+                        <VBox alignment="CENTER">
+                            <Label text="MIESIĘCZNY" style="-fx-text-fill: #dc143c; -fx-font-size: 20px; -fx-font-weight: bold; -fx-font-family: 'Arial Black';"/>
+                            <Label text="180 zł" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                            <Label text="za 30 dni" style="-fx-text-fill: #888; -fx-font-size: 14px;"/>
+                        </VBox>
+
+                        <Separator style="-fx-padding: 10 0; "/>
+
+                        <VBox spacing="10" style="-fx-padding: 10 0 0 0;" alignment="CENTER_LEFT">
+                            <Label text="✓ Dostęp 24h" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Strefa cardio" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Konsultacja trenera" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                        </VBox>
+
+                        <Button text="Dodaj do koszyka" onAction="#addMonthlyToCart" style="-fx-background-color: #dc143c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 5;"/>
+                    </VBox>
+
+                    <!-- Karnet ROCZNY -->
+                    <VBox style="-fx-background-color: #2a2a2a; -fx-background-radius: 10; -fx-padding: 20; -fx-border-color: #dc143c; -fx-border-radius: 10; -fx-border-width: 2;"
+                          alignment="CENTER" spacing="10" prefWidth="200">
+                        <VBox alignment="CENTER">
+                            <Label text="ROCZNY" style="-fx-text-fill: #dc143c; -fx-font-size: 20px; -fx-font-weight: bold; -fx-font-family: 'Arial Black';"/>
+                            <Label text="1200 zł" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                            <Label text="za 12 miesięcy" style="-fx-text-fill: #888; -fx-font-size: 14px;"/>
+                        </VBox>
+
+                        <Separator style="-fx-padding: 10 0; "/>
+
+                        <VBox spacing="10" style="-fx-padding: 10 0 0 0;" alignment="CENTER_LEFT">
+                            <Label text="✓ Wszystko w PRO" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Zniżka 20%" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                            <Label text="✓ Bezpłatne konsultacje" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                        </VBox>
+
+                        <Button text="Dodaj do koszyka" onAction="#addYearlyToCart" style="-fx-background-color: #dc143c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 5;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Przycisk koszyka -->
+                <Button text="Przejdź do koszyka" onAction="#addBasicToCart" style="-fx-background-color: #333; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 20 30; -fx-background-radius: 5; -fx-font-size: 18px;">
+                </Button>
+            </VBox>
+
+            <!-- Sekcja treningów -->
+            <VBox fx:id="trainingsSection" visible="false" style="-fx-background-color: #1a1a1a; -fx-padding: 40px;" spacing="30" alignment="TOP_CENTER">
+                <Label text="NASZE TRENINGI" style="-fx-text-fill: #dc143c; -fx-font-size: 32px; -fx-font-weight: bold; -fx-padding: 40 0 20 0;"/>
+                <!-- Treningi w poziomie -->
+                <HBox spacing="40" alignment="TOP_CENTER">
+
+
+                    <!-- Trening grupowy -->
+                    <VBox styleClass="training-box" spacing="15" alignment="TOP_CENTER">
+                        <HBox spacing="10" alignment="CENTER">
+                            <Label text="🏋️‍♂️" style="-fx-font-size: 32px;-fx-text-fill: red;"/>
+                            <Label text="Trening Grupowy" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                        </HBox>
+                        <VBox spacing="10" style="-fx-padding: 0 0 0 10;">
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="✓" style="-fx-text-fill: #dc143c; -fx-font-size: 16px;"/>
+                                <Label text="CrossFit" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="✓" style="-fx-text-fill: #dc143c; -fx-font-size: 16px;"/>
+                                <Label text="Tabata" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="✓" style="-fx-text-fill: #dc143c; -fx-font-size: 16px;"/>
+                                <Label text="TRX" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="✓" style="-fx-text-fill: #dc143c; -fx-font-size: 16px;"/>
+                                <Label text="Zumba" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Trening indywidualny -->
+                    <VBox styleClass="training-box" spacing="15" alignment="TOP_CENTER">
+                        <HBox spacing="10" alignment="CENTER">
+                            <Label text="💪" style="-fx-font-size: 32px;-fx-text-fill: red;"/>
+                            <Label text="Trening Indywidualny" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                        </HBox>
+                        <VBox spacing="10" style="-fx-padding: 0 0 0 10;">
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="✓" style="-fx-text-fill: #dc143c; -fx-font-size: 16px;"/>
+                                <Label text="Program siłowy" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="✓" style="-fx-text-fill: #dc143c; -fx-font-size: 16px;"/>
+                                <Label text="Redukcja tkanki tłuszczowej" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="✓" style="-fx-text-fill: #dc143c; -fx-font-size: 16px;"/>
+                                <Label text="Trening medyczny" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Label text="✓" style="-fx-text-fill: #dc143c; -fx-font-size: 16px;"/>
+                                <Label text="Przygotowanie do zawodów" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Nagłówek trenerów -->
+                <Label text="NASI TRENERZY" style="-fx-text-fill: #dc143c; -fx-font-size: 32px; -fx-font-weight: bold; -fx-padding: 40 0 20 0;"/>
+
+                <!-- Trenerzy w poziomie -->
+                <HBox spacing="40" alignment="TOP_CENTER">
+                    <!-- Trener 1 -->
+                    <VBox styleClass="trainer-box" spacing="15" alignment="TOP_CENTER" >
+                        <ImageView styleClass="trainer-image" fitWidth="200" fitHeight="200" preserveRatio="true">
+                            <!-- Tutaj wstaw ścieżkę do zdjęcia -->
+                            <image>
+                                <Image url="@images/trener1.webp"/>
+                            </image>
+                        </ImageView>
+                        <Label text="Czarny Młot" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                        <Label text="Specjalista CrossFit" style="-fx-text-fill: #888; -fx-font-size: 16px;"/>
+                        <Label text="5+ lat doświadczenia" style="-fx-text-fill: #888; -fx-font-size: 14px;"/>
+                    </VBox>
+
+                    <!-- Trener 2 -->
+                    <VBox styleClass="trainer-box" spacing="15" alignment="TOP_CENTER">
+                        <ImageView styleClass="trainer-image" fitWidth="200" fitHeight="200" preserveRatio="true" style="-fx-border-color: #dc143c; -fx-border-width: 3px; -fx-border-radius: 60px;">
+                            <!-- Tutaj wstaw ścieżkę do zdjęcia -->
+                            <image>
+                                <Image url="@images/trener2.webp"/>
+                            </image>
+                        </ImageView>
+                        <Label text="Łysa Czarna Bestia" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                        <Label text="Trener Personalny" style="-fx-text-fill: #888; -fx-font-size: 16px;"/>
+                        <Label text="Specjalista żywienia" style="-fx-text-fill: #888; -fx-font-size: 14px;"/>
+                    </VBox>
+
+                    <!-- Trener 3 -->
+                    <VBox styleClass="trainer-box" spacing="15" alignment="TOP_CENTER">
+                        <ImageView styleClass="trainer-image" fitWidth="200" fitHeight="200" preserveRatio="true" style="-fx-border-color: #dc143c; -fx-border-width: 3px; -fx-border-radius: 60px;">
+                            <!-- Tutaj wstaw ścieżkę do zdjęcia -->
+                            <image>
+                                <Image url="@images/trener1.webp"/>
+                            </image>
+                        </ImageView>
+                        <Label text="Michał Szukala" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                        <Label text="Instruktor RTX" style="-fx-text-fill: #888; -fx-font-size: 16px;"/>
+                        <Label text="Trening funkcjonalny" style="-fx-text-fill: #888; -fx-font-size: 14px;"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <VBox fx:id="shopSection" visible="false" style="-fx-background-color: #1a1a1a;" alignment="TOP_CENTER">
+                <!-- Nagłówek sklepu z koszykiem -->
+                <HBox alignment="CENTER" spacing="20" style="-fx-padding: 20;">
+                    <Label text="SKLEP BLACK IRON GYM" style="-fx-text-fill: #dc143c; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+                    <HBox alignment="CENTER_RIGHT" style="-fx-padding: 0 20 0 0; -fx-spacing: 10;">
+                        <Button onAction="#showCart" styleClass="cart-button">
+                            <HBox alignment="CENTER" spacing="5">
+                                <Label text="Koszyk" style="-fx-font-size: 16px;"/>
+                                <Label fx:id="cartCounterLabel" text="(0)" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+                            </HBox>
+                        </Button>
+                    </HBox>
+                </HBox>
+
+                <!-- ScrollPane dla produktów -->
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-padding: 20 20 20 20;">
+                    <content>
+                        <!-- Produkty w układzie siatki 3x3 -->
+                        <GridPane hgap="30" vgap="30" alignment="CENTER">
+                            <columnConstraints>
+                                <ColumnConstraints prefWidth="300" halignment="CENTER"/>
+                                <ColumnConstraints prefWidth="300" halignment="CENTER"/>
+                                <ColumnConstraints prefWidth="300" halignment="CENTER"/>
+                            </columnConstraints>
+
+                            <!-- Rząd 1 -->
+                            <VBox styleClass="product-box" GridPane.columnIndex="0" GridPane.rowIndex="0" alignment="CENTER" spacing="10">
+                                <ImageView fitWidth="150" fitHeight="150" preserveRatio="true">
+                                    <image><Image url="@images/foto1.jfif"/></image>
+                                </ImageView>
+                                <Label text="WHEY PROTEIN COMPLEX" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <Label text="129 zł" style="-fx-text-fill: #dc143c; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                <Button text="Kup teraz" onAction="#buyWheyProtein" styleClass="buy-button" prefWidth="120"/>
+                            </VBox>
+
+                            <VBox styleClass="product-box" GridPane.columnIndex="1" GridPane.rowIndex="0" alignment="CENTER" spacing="10">
+                                <ImageView fitWidth="150" fitHeight="150" preserveRatio="true">
+                                    <image><Image url="@images/foto2.jfif"/></image>
+                                </ImageView>
+                                <Label text="Strzykawka" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <Label text="6 zł" style="-fx-text-fill: #dc143c; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                <Button text="Kup teraz" onAction="#buyCreatine" styleClass="buy-button" prefWidth="120"/>
+                            </VBox>
+
+                            <VBox styleClass="product-box" GridPane.columnIndex="2" GridPane.rowIndex="0" alignment="CENTER" spacing="10">
+                                <ImageView fitWidth="150" fitHeight="150" preserveRatio="true">
+                                    <image><Image url="@images/foto3.jfif"/></image>
+                                </ImageView>
+                                <Label text="Kreatyna monohydrat" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <Label text="35 zł" style="-fx-text-fill: #dc143c; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                <Button text="Kup teraz" onAction="#buyShaker" styleClass="buy-button" prefWidth="120"/>
+                            </VBox>
+
+                            <!-- Rząd 2 -->
+                            <VBox styleClass="product-box" GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" spacing="10">
+                                <ImageView fitWidth="150" fitHeight="150" preserveRatio="true">
+                                    <image><Image url="@images/foto4.jpg"/></image>
+                                </ImageView>
+                                <Label text="Shaker Wielkiego Chłopa" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <Label text="29 zł" style="-fx-text-fill: #dc143c; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                <Button text="Kup teraz" onAction="#buySyringe" styleClass="buy-button" prefWidth="120"/>
+                            </VBox>
+
+                            <VBox styleClass="product-box" GridPane.columnIndex="1" GridPane.rowIndex="1" alignment="CENTER" spacing="10">
+                                <ImageView fitWidth="150" fitHeight="150" preserveRatio="true">
+                                    <image><Image url="@images/foto5.jfif"/></image>
+                                </ImageView>
+                                <Label text="Trembolon" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <Label text="165 zł" style="-fx-text-fill: #dc143c; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                <Button text="Kup teraz" onAction="#buyTrembolone" styleClass="buy-button" prefWidth="120"/>
+                            </VBox>
+
+                            <VBox styleClass="product-box" GridPane.columnIndex="2" GridPane.rowIndex="1" alignment="CENTER" spacing="10">
+                                <ImageView fitWidth="150" fitHeight="150" preserveRatio="true">
+                                    <image><Image url="@images/foto6.jfif"/></image>
+                                </ImageView>
+                                <Label text="Testosterone" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <Label text="135 zł" style="-fx-text-fill: #dc143c; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                <Button text="Kup teraz" onAction="#buyNandrolone" styleClass="buy-button" prefWidth="120"/>
+                            </VBox>
+
+                            <!-- Rząd 3 - Obciążenia -->
+                            <VBox styleClass="product-box" GridPane.columnIndex="0" GridPane.rowIndex="2" alignment="CENTER" spacing="10">
+                                <ImageView fitWidth="150" fitHeight="150" preserveRatio="true">
+                                    <image><Image url="@images/foto7.jfif"/></image>
+                                </ImageView>
+                                <Label text="Drostanolon" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <Label text="125 zł" style="-fx-text-fill: #dc143c; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                <Button text="Kup teraz" onAction="#buyWeight1" styleClass="buy-button" prefWidth="120"/>
+                            </VBox>
+
+                            <VBox styleClass="product-box" GridPane.columnIndex="1" GridPane.rowIndex="2" alignment="CENTER" spacing="10">
+                                <ImageView fitWidth="150" fitHeight="150" preserveRatio="true">
+                                    <image><Image url="@images/foto8.jfif"/></image>
+                                </ImageView>
+                                <Label text="Dihydroboldenone (DHB)" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <Label text="150 zł" style="-fx-text-fill: #dc143c; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                <Button text="Kup teraz" onAction="#buyWeight2" styleClass="buy-button" prefWidth="120"/>
+                            </VBox>
+
+                            <VBox styleClass="product-box" GridPane.columnIndex="2" GridPane.rowIndex="2" alignment="CENTER" spacing="10">
+                                <ImageView fitWidth="150" fitHeight="150" preserveRatio="true">
+                                    <image><Image url="@images/foto9.jfif"/></image>
+                                </ImageView>
+                                <Label text="Nandrolon" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <Label text="200 zł" style="-fx-text-fill: #dc143c; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                <Button text="Kup teraz" onAction="#buyWeight3" styleClass="buy-button" prefWidth="120"/>
+                            </VBox>
+                        </GridPane>
+                    </content>
+                </ScrollPane>
+            </VBox>
+
+            <VBox fx:id="scheduleSection" visible="false" style="-fx-background-color: #1a1a1a;" spacing="20" alignment="TOP_CENTER">
+                <!-- Nagłówek -->
+                <Label text="HARMONOGRAM ZAJĘĆ" style="-fx-text-fill: #dc143c; -fx-font-size: 28px; -fx-font-weight: bold; -fx-padding: 0 0 20 0;"/>
+
+                <!-- Tabela w ScrollPane -->
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-padding: 0 20;">
+                    <content>
+                        <TableView fx:id="scheduleTable" style="-fx-font-size: 16px; -fx-background-color: #2a2a2a;" fixedCellSize="60">
+                            <columns>
+                                <TableColumn fx:id="timeColumn" text="Godzina" prefWidth="150"/>
+                                <TableColumn fx:id="mondayColumn" text="Poniedziałek" prefWidth="200"/>
+                                <TableColumn fx:id="tuesdayColumn" text="Wtorek" prefWidth="200"/>
+                                <TableColumn fx:id="wednesdayColumn" text="Środa" prefWidth="200"/>
+                                <TableColumn fx:id="thursdayColumn" text="Czwartek" prefWidth="200"/>
+                                <TableColumn fx:id="fridayColumn" text="Piątek" prefWidth="200"/>
+                                <TableColumn fx:id="saturdayColumn" text="Sobota" prefWidth="200"/>
+                            </columns>
+                        </TableView>
+                    </content>
+                </ScrollPane>
+
+                <!-- Legenda -->
+                <VBox style="-fx-background-color: #2a2a2a; -fx-padding: 20; -fx-background-radius: 10;" spacing="10" alignment="CENTER">
+                    <Label text="LEGENDA:" style="-fx-text-fill: #dc143c; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                    <GridPane hgap="30" vgap="10" alignment="CENTER">
+                        <columnConstraints>
+                            <ColumnConstraints prefWidth="250" halignment="LEFT"/>
+                            <ColumnConstraints prefWidth="250" halignment="LEFT"/>
+                        </columnConstraints>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="•" style="-fx-text-fill: #dc143c; -fx-font-size: 20px;"/>
+                            <Label text="CrossFit - Sala A" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                        </HBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="•" style="-fx-text-fill: #dc143c; -fx-font-size: 20px;"/>
+                            <Label text="Strongman - Strefa Wolnych Ciężarów" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                        </HBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label text="•" style="-fx-text-fill: #dc143c; -fx-font-size: 20px;"/>
+                            <Label text="TRX - Sala B" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                        </HBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Label text="•" style="-fx-text-fill: #dc143c; -fx-font-size: 20px;"/>
+                            <Label text="Mobility - Sala C" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                        </HBox>
+                    </GridPane>
+                </VBox>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>
