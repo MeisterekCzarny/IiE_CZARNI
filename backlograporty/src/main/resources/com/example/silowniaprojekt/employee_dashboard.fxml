@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.collections.FXCollections?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.silowniaprojekt.EmployeeDashboardController"
+            stylesheets="@employee_styles.css">
+
+    <left>
+        <VBox style="-fx-background-color: #0a0a0a; -fx-border-color: #dc143c; -fx-border-width: 0 3 0 0;"
+              spacing="20" prefWidth="250" alignment="TOP_CENTER">
+            <Label text="Panel Pracownika" style="-fx-text-fill: #dc143c; -fx-font-size: 24; -fx-font-weight: bold; -fx-padding: 20;"/>
+
+            <VBox spacing="10" style="-fx-padding: 0 20;" alignment="CENTER_LEFT">
+                <Button fx:id="dashboardBtn"  styleClass="nav-btn" onAction="#showDashboard">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🏠" styleClass="nav-icon"/>
+                            <Label text="Pulpit"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="registrationBtn"  styleClass="nav-btn" onAction="#showRegistration">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="📝" styleClass="nav-icon"/>
+                            <Label text="Rejestracja"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="transactionsBtn"  styleClass="nav-btn" onAction="#showTransactions">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="💰" styleClass="nav-icon"/>
+                            <Label text="Transakcje"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+
+
+
+                <Button fx:id="membershipsBtn"  styleClass="nav-btn" onAction="#showMemberships">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🎫" styleClass="nav-icon"/>
+                            <Label text="Karnety"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="scheduleBtn" text="Harmonogram" styleClass="nav-btn" onAction="#showSchedule">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="📅" styleClass="nav-icon"/>
+                            <Label text="Harmonogram"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button  styleClass="nav-btn" onAction="#logout">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🚪" styleClass="nav-icon"/>
+                            <Label text="Wyloguj"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane style="-fx-background-color: #0a0a0a;">
+
+            <VBox fx:id="dashboardSection" style="-fx-padding: 30;" spacing="20">
+                <Label text="Witaj w panelu pracownika" styleClass="section-title"/>
+                <HBox spacing="20">
+                    <VBox styleClass="stats-card">
+                        <Label text="Aktywni klienci" styleClass="stats-header"/>
+                        <Label text="158" styleClass="stats-main"/>
+                        <Label text="▲ 2.3% (m/m)" styleClass="stats-secondary"/>
+                    </VBox>
+                    <VBox styleClass="stats-card">
+                        <Label text="Dzisiejsze wejścia" styleClass="stats-header"/>
+                        <Label text="47" styleClass="stats-main"/>
+                        <Label text="▼ 1.1% (wczoraj)" styleClass="stats-secondary"/>
+                    </VBox>
+                    <VBox styleClass="stats-card">
+                        <Label text="Sprawny sprzęt" styleClass="stats-header"/>
+                        <Label text="92%" styleClass="stats-main"/>
+                        <Label text="3 urządzenia w serwisie" styleClass="stats-secondary"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <VBox fx:id="registrationSection" visible="false" style="-fx-padding: 30;" spacing="15">
+                <Label text="Rejestracja nowego klienta" styleClass="section-title"/>
+
+                <GridPane hgap="15" vgap="15">
+                    <!-- Pole Imię i nazwisko -->
+                    <Label text="Imię i nazwisko:" styleClass="form-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="clientNameField" styleClass="form-field" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <Label fx:id="nameError" style="-fx-text-fill: red; -fx-font-size: 10px;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <!-- Pole Email -->
+                    <Label text="Email:" styleClass="form-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="emailField" styleClass="form-field" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    <Label fx:id="emailError" style="-fx-text-fill: red; -fx-font-size: 10px;" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <!-- Pole Hasło -->
+                    <Label text="Hasło:" styleClass="form-label" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                    <PasswordField fx:id="passwordField" styleClass="form-field" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                    <Label fx:id="passwordError" style="-fx-text-fill: red; -fx-font-size: 10px;" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                    <!-- Pole Rola -->
+                    <Label text="Rola:" styleClass="form-label" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                    <ComboBox fx:id="roleComboBox" styleClass="combo-box" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <HBox spacing="10">
+                    <Button text="Dodaj użytkownika" styleClass="action-btn" onAction="#addUser"/>
+                    <Button text="Edytuj" styleClass="action-btn" onAction="#editUser"/>
+                    <Button text="Dezaktywuj" styleClass="action-btn" onAction="#deleteUser"/>
+                    <Button text="Aktywuj" styleClass="action-btn" onAction="#activateUser"/>
+                </HBox>
+
+                <TableView fx:id="usersTable" styleClass="data-table">
+                    <columns>
+                        <TableColumn fx:id="userNameColumn" text="Imię i nazwisko" prefWidth="200"/>
+                        <TableColumn fx:id="userEmailColumn" text="Email" prefWidth="200"/>
+                        <TableColumn fx:id="userRoleColumn" text="Rola" prefWidth="150"/>
+                        <TableColumn fx:id="userStatusColumn" text="Status" prefWidth="150"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+
+            <VBox fx:id="pricingSection" visible="false" style="-fx-padding: 30;" spacing="15">
+                <Label text="Zarządzanie cennikiem" styleClass="section-title"/>
+                <TableView fx:id="pricingTable" styleClass="data-table">
+                    <columns>
+                        <TableColumn fx:id="membershipNameColumn" text="Nazwa pakietu" prefWidth="150"/>
+                        <TableColumn fx:id="membershipDescColumn" text="Opis" prefWidth="300"/>
+                        <TableColumn fx:id="membershipPriceColumn" text="Cena" prefWidth="100"/>
+                        <TableColumn fx:id="membershipDurationColumn" text="Czas trwania" prefWidth="120"/>
+                        <TableColumn fx:id="membershipStatusColumn" text="Status" prefWidth="100"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+                <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                    <TextField fx:id="packageNameField" promptText="Nazwa pakietu" styleClass="form-field" prefWidth="200"/>
+                    <TextField fx:id="packagePriceField" promptText="Cena (zł)" styleClass="form-field" prefWidth="100"/>
+                    <ComboBox fx:id="packageDurationCombo" promptText="Czas trwania" styleClass="combo-box" prefWidth="120"/>
+                    <Button text="Dodaj pakiet" styleClass="action-btn" onAction="#addPricingPackage"/>
+                </HBox>
+            </VBox>
+
+            <VBox fx:id="transactionsSection" visible="false" style="-fx-padding: 30;" spacing="15">
+                <Label text="Historia transakcji" styleClass="section-title"/>
+                <TableView fx:id="transactionsTable" styleClass="data-table">
+                    <columns>
+                        <TableColumn fx:id="transactionIdColumn" text="ID Transakcji" prefWidth="100"/>
+                        <TableColumn fx:id="transactionClientColumn" text="Klient" prefWidth="150"/>
+                        <TableColumn fx:id="transactionProductNameColumn" text="Nazwa Produktu" prefWidth="200"/>
+                        <TableColumn fx:id="transactionAmountColumn" text="Kwota" prefWidth="100" styleClass="numeric-column"/>
+                        <TableColumn fx:id="transactionDateColumn" text="Data Transakcji" prefWidth="150" styleClass="date-column"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+                <GridPane hgap="10" vgap="10">
+                    <Label text="Klient:" styleClass="form-label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <ComboBox fx:id="transactionClientComboBox" styleClass="combo-box" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
+
+                    <Label text="Produkt:" styleClass="form-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <ComboBox fx:id="transactionProductComboBox" styleClass="combo-box" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <Label fx:id="productPriceLabel" styleClass="form-label" style="-fx-text-fill: white;" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+
+                    <Label text="Ilość:" styleClass="form-label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="transactionQuantityField" styleClass="form-field" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    <Label fx:id="totalPriceLabel" styleClass="form-label" style="-fx-text-fill: white; -fx-font-weight: bold;" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+
+                    <Label text="Suma:" styleClass="form-label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <Label fx:id="transactionAmountLabel" styleClass="form-label" style="-fx-text-fill: white; -fx-font-weight: bold;" GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
+                </GridPane>
+
+                <Button text="Dodaj transakcję" styleClass="action-btn" onAction="#addTransaction" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            </VBox>
+
+            <VBox fx:id="reportsSection" visible="false" style="-fx-padding: 30;" spacing="15">
+                <Label text="Raporty miesięczne" styleClass="section-title"/>
+                <HBox spacing="20">
+                    <VBox styleClass="stats-card">
+                        <Label text="Przychód" styleClass="stats-header"/>
+                        <Label fx:id="revenueLabel" text="24 500 zł" styleClass="stats-main"/>
+                        <Label fx:id="revenueChangeLabel" text="▲ 15% (m/m)" styleClass="stats-secondary"/>
+                    </VBox>
+                    <VBox styleClass="stats-card">
+                        <Label text="Nowi klienci" styleClass="stats-header"/>
+                        <Label fx:id="newClientsLabel" text="47" styleClass="stats-main"/>
+                        <Label fx:id="clientsChangeLabel" text="▼ 5% (m/m)" styleClass="stats-secondary"/>
+                    </VBox>
+                    <VBox styleClass="stats-card">
+                        <Label text="Średnia frekwencja" styleClass="stats-header"/>
+                        <Label fx:id="attendanceLabel" text="68%" styleClass="stats-main"/>
+                        <Label fx:id="attendanceChangeLabel" text="▬ 0% (m/m)" styleClass="stats-secondary"/>
+                    </VBox>
+                </HBox>
+                <HBox spacing="10" style="-fx-padding: 20 0 0 0;">
+                    <DatePicker fx:id="reportMonthPicker" promptText="Wybierz miesiąc" styleClass="date-picker"/>
+                    <Button text="Generuj raport PDF" styleClass="action-btn"/>
+                    <Button text="Eksportuj do Excel" styleClass="action-btn"/>
+                </HBox>
+            </VBox>
+
+            <VBox fx:id="membershipsSection" visible="false" style="-fx-padding: 30;" spacing="15">
+                <Label text="Zarządzanie karnetami" styleClass="section-title"/>
+                <TableView fx:id="membershipsTable" styleClass="data-table">
+                    <columns>
+                        <TableColumn fx:id="membershipIdColumn" text="ID Płatności" prefWidth="100"/>
+                        <TableColumn fx:id="membershipClientColumn" text="Klient" prefWidth="200"/>
+                        <TableColumn fx:id="membershipAmountColumn" text="Kwota" prefWidth="100" styleClass="numeric-column"/>
+                        <TableColumn fx:id="membershipPaymentDateColumn" text="Data Płatności" prefWidth="150" styleClass="date-column"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+                <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                    <ComboBox fx:id="membershipClientComboBox" promptText="Wybierz klienta" styleClass="combo-box" prefWidth="200"/>
+                    <TextField fx:id="membershipAmountField" promptText="Kwota" styleClass="form-field" prefWidth="100"/>
+                    <Button text="Dodaj płatność za karnet" styleClass="action-btn" onAction="#addMembershipPayment"/>
+                </HBox>
+            </VBox>
+
+            <VBox fx:id="scheduleSection" visible="false" style="-fx-padding: 30;" spacing="15">
+                <Label text="Prośby o Treningi Indywidualne" styleClass="section-title"/>
+                <TableView fx:id="scheduleTable" styleClass="data-table" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="trainingRequestIdColumn" text="ID Prośby" prefWidth="80"/>
+                        <TableColumn fx:id="scheduleClientColumn" text="Klient" prefWidth="150"/>
+                        <TableColumn fx:id="scheduleTrainerColumn" text="Trener" prefWidth="150"/>
+                        <TableColumn fx:id="scheduleDateTimeColumn" text="Data i Czas Treningu" prefWidth="180" styleClass="date-column"/>
+                        <TableColumn fx:id="scheduleNotesColumn" text="Notatki" prefWidth="250"/>
+                        <TableColumn fx:id="scheduleStatusColumn" text="Status" prefWidth="100"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+
+                <Label text="Płatności za wybrany trening" styleClass="section-title" style="-fx-font-size: 18px; -fx-padding: 10 0 5 0;"/>
+                <TableView fx:id="trainingRequestPaymentsTable" styleClass="data-table" prefHeight="150">
+                    <columns>
+                        <TableColumn fx:id="paymentIdColumn" text="ID Płatności" prefWidth="80" />
+                        <TableColumn fx:id="paymentDateColumn" text="Data Płatności" prefWidth="180" />
+                        <TableColumn fx:id="paymentAmountColumn" text="Kwota" prefWidth="100" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+
+                <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                    <TextField fx:id="paymentAmountField" promptText="Kwota płatności" styleClass="form-field" prefWidth="150" />
+                    <Button text="Dodaj Płatność" styleClass="action-btn" onAction="#addTrainingRequestPayment" />
+                </HBox>
+            </VBox>
+
+        </StackPane>
+    </center>
+</BorderPane>

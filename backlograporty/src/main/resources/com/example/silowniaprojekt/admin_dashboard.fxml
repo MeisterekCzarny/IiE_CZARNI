@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.silowniaprojekt.AdminDashboardController"
+            stylesheets="@admin_styles.css">
+
+    <!-- Panel boczny -->
+    <left>
+        <VBox style="-fx-background-color: #0a0a0a; -fx-border-color: #dc143c; -fx-border-width: 0 3 0 0;"
+              spacing="20" prefWidth="250" alignment="TOP_CENTER">
+            <Label text="Panel Administratora" style="-fx-text-fill: #dc143c; -fx-font-size: 24; -fx-font-weight: bold; -fx-padding: 20;"/>
+
+            <VBox spacing="10" style="-fx-padding: 0 20;" alignment="CENTER_LEFT">
+                <Button fx:id="dashboardBtn" onAction="#showDashboard" styleClass="nav-btn">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🏠" styleClass="nav-icon"/>
+                            <Label text="Pulpit"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="usersBtn" onAction="#showUsers" styleClass="nav-btn">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="👥" styleClass="nav-icon"/>
+                            <Label text="Użytkownicy"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="trainingsBtn" onAction="#showTrainings" styleClass="nav-btn">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🏋️" styleClass="nav-icon"/>
+                            <Label text="Treningi"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="storeBtn" onAction="#showStore" styleClass="nav-btn">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🛒" styleClass="nav-icon"/>
+                            <Label text="Sklep"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="transactionsBtn" onAction="#showTransactions" styleClass="nav-btn">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="💰" styleClass="nav-icon"/>
+                            <Label text="Transakcje"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="membershipsBtn" onAction="#showMemberships" styleClass="nav-btn">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🎫" styleClass="nav-icon"/>
+                            <Label text="Karnety"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="reportsBtn" onAction="#showReports" styleClass="nav-btn">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="📊" styleClass="nav-icon"/>
+                            <Label text="Raporty"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button onAction="#logout" styleClass="nav-btn">
+                    <graphic>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🚪" styleClass="nav-icon"/>
+                            <Label text="Wyloguj"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Główna zawartość -->
+    <center>
+        <StackPane styleClass="main-content">
+            <!-- Sekcja Pulpit -->
+            <VBox fx:id="dashboardSection" spacing="20" visible="true">
+                <Label text="Witaj w panelu administratora" styleClass="section-title"/>
+
+                <!-- Statystyki -->
+                <HBox spacing="20">
+                    <VBox styleClass="dashboard-card" HBox.hgrow="ALWAYS">
+                        <Label text="Aktywni klienci" styleClass="card-title"/>
+                        <Label text="248" styleClass="stat-number"/>
+                        <Label text="↑ 12% (m/m)" styleClass="stat-compare"/>
+                    </VBox>
+
+                    <VBox styleClass="dashboard-card" HBox.hgrow="ALWAYS">
+                        <Label text="Obecni na siłowni" styleClass="card-title"/>
+                        <Label text="47" styleClass="stat-number"/>
+                        <Label text="↑ 3% (wczoraj)" styleClass="stat-compare"/>
+                    </VBox>
+
+                    <VBox styleClass="dashboard-card" HBox.hgrow="ALWAYS">
+                        <Label text="Dzienna sprzedaż" styleClass="card-title"/>
+                        <Label text="2,450 zł" styleClass="stat-number"/>
+                        <Label text="↓ 5% (wczoraj)" styleClass="stat-compare"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Wykres -->
+                <VBox styleClass="dashboard-card" VBox.vgrow="ALWAYS">
+                    <Label text="Aktywność w ciągu ostatniego tygodnia" styleClass="card-title"/>
+                    <LineChart fx:id="activityChart" VBox.vgrow="ALWAYS">
+                        <xAxis>
+                            <CategoryAxis label="Dzień tygodnia"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis label="Liczba klientów"/>
+                        </yAxis>
+                    </LineChart>
+                </VBox>
+            </VBox>
+
+            <!-- Sekcja Użytkownicy -->
+            <VBox fx:id="usersSection" spacing="20" visible="false">
+                <Label text="Zarządzanie użytkownikami" styleClass="section-title"/>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField style="-fx-prompt-text-fill: white" promptText="Wyszukaj użytkownika..." HBox.hgrow="ALWAYS"/>
+                    <Button text="Dodaj użytkownika" onAction="#addUser" styleClass="action-button"/>
+                    <Button text="Edytuj" onAction="#editUser" styleClass="action-button"/>
+                    <Button text="Dezaktywuj" onAction="#deleteUser" styleClass="action-button"/>
+                    <Button text="Aktywuj" onAction="#activateUser" styleClass="action-button"/>
+                    <Button text="Zmień hasło" onAction="#changePassword" styleClass="action-button"/>
+                </HBox>
+
+                <TableView fx:id="usersTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="userNameColumn" text="Imię i nazwisko" prefWidth="300"/>
+                        <TableColumn fx:id="userEmailColumn" text="Email" prefWidth="300"/>
+                        <TableColumn fx:id="userRoleColumn" text="Rola" prefWidth="300"/>
+                        <TableColumn fx:id="userStatusColumn" text="Status" prefWidth="100"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+            <!-- Sekcja Treningi -->
+            <VBox fx:id="trainingsSection" spacing="20" visible="false">
+                <Label text="Zarządzanie treningami" styleClass="section-title"/>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button text="Zmień datę" onAction="#changeTrainingDate" styleClass="action-button"/>
+                    <Button text="Edytuj notatki" onAction="#editTrainingNotes" styleClass="action-button"/>
+                    <Button text="Zmień trenera" onAction="#changeTrainingTrainer" styleClass="action-button"/>
+                </HBox>
+
+                <HBox spacing="20">
+                    <VBox spacing="10" HBox.hgrow="ALWAYS">
+                        <Label text="Harmonogram treningów" styleClass="card-title"/>
+                        <TableView fx:id="trainingsTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="trainingDateColumn" text="Data" prefWidth="120"/>
+                                <TableColumn fx:id="trainingNotesColumn" text="Notatki" prefWidth="250"/>
+                                <TableColumn fx:id="trainingClientColumn" text="Klient" prefWidth="150"/>
+                                <TableColumn fx:id="trainingTrainerColumn" text="Trener" prefWidth="150"/>
+                            </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                            </columnResizePolicy>
+                        </TableView>
+
+                        <!-- Dodany panel szczegółów -->
+                        <VBox fx:id="trainingDetailsContainer" styleClass="form-container" visible="false" spacing="10">
+                            <Label text="Szczegóły treningu" styleClass="card-title"/>
+                            <GridPane hgap="10" vgap="10">
+                                <Label text="Data:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="form-label"/>
+                                <Label fx:id="detailTrainingDate" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="form-value"/>
+
+                                <Label text="Klient:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="form-label"/>
+                                <Label fx:id="detailTrainingClient" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="form-value"/>
+
+                                <Label text="Trener:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="form-label"/>
+                                <Label fx:id="detailTrainingTrainer" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="form-value"/>
+
+                                <Label text="Notatki:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="form-label"/>
+                                <TextArea fx:id="detailTrainingNotes" editable="false" GridPane.rowIndex="3" GridPane.columnIndex="1"
+                                          wrapText="true" styleClass="form-text-area"/>
+                            </GridPane>
+                        </VBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- Sekcja Sklep -->
+            <VBox fx:id="storeSection" spacing="20" visible="false">
+                <Label text="Zarządzanie sklepem" styleClass="section-title"/>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField style="-fx-prompt-text-fill: white" promptText="Wyszukaj produkt..." HBox.hgrow="ALWAYS"/>
+                    <Button text="Dodaj produkt" onAction="#addProduct" styleClass="action-button"/>
+                    <!-- Dodany przycisk Edytuj -->
+                    <Button text="Edytuj" onAction="#editProduct" styleClass="action-button"/>
+                </HBox>
+
+                <TableView fx:id="productsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="productNameColumn" text="Nazwa" prefWidth="300"/>
+                        <TableColumn fx:id="productPriceColumn" text="Cena" prefWidth="100"/>
+                        <TableColumn fx:id="productStockColumn" text="Stan magazynu" prefWidth="150"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+            <!-- Sekcja Karnety -->
+            <VBox fx:id="membershipsSection" spacing="20" visible="false">
+                <Label text="Płatności członkowskie" styleClass="section-title"/>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField style="-fx-prompt-text-fill: white" promptText="Wyszukaj płatność..." HBox.hgrow="ALWAYS"/>
+                    <!-- Dodane przyciski -->
+                    <Button text="Zmień kwotę" onAction="#changeMembershipAmount" styleClass="action-button"/>
+                    <Button text="Zmień datę" onAction="#changeMembershipDate" styleClass="action-button"/>
+                </HBox>
+
+                <TableView fx:id="membershipsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="membershipClientColumn" text="Klient" prefWidth="200"/>
+                        <TableColumn fx:id="membershipAmountColumn" text="Kwota" prefWidth="100"/>
+                        <TableColumn fx:id="membershipDateColumn" text="Data płatności" prefWidth="150"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+            <!-- Sekcja Sprzęt -->
+            <VBox fx:id="equipmentSection" spacing="20" visible="false">
+                <Label text="Zarządzanie sprzętem" styleClass="section-title"/>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField style="-fx-prompt-text-fill: white" promptText="Wyszukaj sprzęt..." HBox.hgrow="ALWAYS"/>
+                    <Button text="Dodaj sprzęt" styleClass="action-button"/>
+                </HBox>
+
+                <TableView fx:id="equipmentTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="equipmentNameColumn" text="Nazwa sprzętu" prefWidth="250"/>
+                        <TableColumn fx:id="equipmentQuantityColumn" text="Ilość" prefWidth="100"/>
+                        <TableColumn fx:id="equipmentStatusColumn" text="Status" prefWidth="150"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+            <VBox fx:id="settingsSection" xmlns="http://javafx.com/javafx">
+                <!-- Zawartość sekcji "Ustawienia" -->
+            </VBox>
+
+            <!-- Sekcja Transakcje -->
+            <VBox fx:id="transactionsSection" spacing="20" visible="false">
+                <Label text="Historia transakcji" styleClass="section-title"/>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField style="-fx-prompt-text-fill: white" promptText="Wyszukaj transakcję..." HBox.hgrow="ALWAYS"/>
+                    <Button text="Edytuj" onAction="#editTransaction" styleClass="action-button"/>
+                    <Button text="Usuń" onAction="#deleteTransaction" styleClass="action-button"/>
+                </HBox>
+
+                <TableView fx:id="transactionsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="transactionIdColumn" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="transactionClientColumn" text="Klient" prefWidth="150"/>
+                        <TableColumn fx:id="transactionProductColumn" text="Produkt" prefWidth="150"/>
+                        <TableColumn fx:id="transactionDateColumn" text="Data" prefWidth="120"/>
+                        <TableColumn fx:id="transactionAmountColumn" text="Kwota" prefWidth="100"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+            <!-- Sekcja Raporty -->
+            <VBox fx:id="reportsSection" spacing="20.0" visible="false">
+                <padding>
+                    <Insets bottom="20.0" left="30.0" right="30.0" top="30.0" />
+                </padding>
+                <Label text="Raporty" styleClass="section-title">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+
+                <!-- Sekcja filtrowania dat -->
+                <VBox spacing="10" styleClass="form-container">
+                    <Label text="Wybór okresu:" styleClass="card-title"/>
+
+                    <HBox spacing="20" alignment="CENTER_LEFT">
+                        <fx:define>
+                            <ToggleGroup fx:id="periodToggleGroup"/>
+                        </fx:define>
+                        <RadioButton fx:id="predefinedPeriodsRadio" text="Predefiniowane okresy"
+                                     style="-fx-text-fill: white;" toggleGroup="$periodToggleGroup" selected="true"/>
+                        <RadioButton fx:id="customDatesRadio" text="Konkretne daty"
+                                     style="-fx-text-fill: white;" toggleGroup="$periodToggleGroup"/>
+                    </HBox>
+
+                    <HBox spacing="20" alignment="CENTER_LEFT">
+                        <VBox spacing="5">
+                            <Label text="Okres:" styleClass="form-label"/>
+                            <ComboBox fx:id="periodComboBox" prefWidth="200.0" styleClass="combo-box">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Ostatni tydzień"/>
+                                        <String fx:value="Ostatni miesiąc"/>
+                                        <String fx:value="Ostatni kwartał"/>
+                                        <String fx:value="Bieżący rok"/>
+                                        <String fx:value="Wszystkie"/>
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <Label text="Data od:" styleClass="form-label"/>
+                            <DatePicker fx:id="startDatePicker" prefWidth="150" styleClass="date-picker"/>
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <Label text="Data do:" styleClass="form-label"/>
+                            <DatePicker fx:id="endDatePicker" prefWidth="150" styleClass="date-picker"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Sekcja filtrowania produktów -->
+                <VBox spacing="10" styleClass="form-container">
+                    <Label text="Filtr produktów (dla raportu produktów):" styleClass="card-title"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Produkt:" styleClass="form-label"/>
+                        <ComboBox fx:id="productFilterCombo" prefWidth="250.0" styleClass="combo-box"/>
+                        <Button text="Odśwież" onAction="#refreshFilters" styleClass="action-button"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Przyciski generowania raportów -->
+                <HBox spacing="10" alignment="CENTER">
+                    <Button onAction="#generateFinancialReport" text="Raport Finansowy" styleClass="action-button"/>
+                    <Button onAction="#generateProductsReport" text="Raport Produktów" styleClass="action-button"/>
+                    <Button onAction="#generateMembershipReport" text="Raport Karnetów" styleClass="action-button"/>
+                    <Button onAction="#generateTransactionsReport" text="Raport Transakcji" styleClass="action-button"/>
+                </HBox>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

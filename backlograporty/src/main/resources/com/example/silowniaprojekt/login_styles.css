@@ -1,0 +1,63 @@
+.root {
+    -fx-background-image: url("images/logowanie.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+.login-panel {
+    -fx-background-color: rgba(0, 0, 0, 0.75);
+    -fx-padding: 40px;
+    -fx-background-radius: 20px;
+    -fx-max-width: 400px;
+    -fx-max-height: 400px;
+    -fx-border-color: #ff0044;
+    -fx-border-width: 1px;
+    -fx-border-radius: 20px;
+}
+
+.input-field {
+    -fx-pref-width: 250px;
+    -fx-background-color: #222;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #999;
+    -fx-border-color: #ff0044;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+
+
+.title-label {
+    -fx-font-size: 34px;
+    -fx-text-fill: #ff0044;
+    -fx-font-weight: bold;
+}
+
+.subtext-label, .check-label {
+    -fx-text-fill: white;
+}
+
+.highlight-link, .forgot-link {
+    -fx-text-fill: #ff0044;
+}
+.login-button {
+    -fx-background-color: #ff0044;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0.0, 0, 1);
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.login-button:hover {
+    -fx-background-color: #830928;
+}
+
+.login-button:pressed {
+    -fx-background-color: #a30029;
+    -fx-translate-y: 1; /* lekki efekt wciśnięcia */
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.6), 4, 0.3, 0, 2);
+}
